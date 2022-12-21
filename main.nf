@@ -86,8 +86,12 @@ log.info """\
 
 workflow {
   
-  fastqc_ch = FASTQC(channel.fromFilePairs("$params.input_dir/*{1,2}.fastq.gz"))
-  FASTP(channel.fromFilePairs("$params.input_dir/*{1,2}.fastq.gz"))
+  reads_ch = Channel.fromFilePairs("$params.input_dir/*{1,2}.fastq.gz")
+  
+  FASTP(reads_ch)
+ 
+  fastqc_ch = FASTQC(reads_ch)
+  
   multiqc(fastqc_ch)
   
 }
