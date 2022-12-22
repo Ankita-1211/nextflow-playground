@@ -78,7 +78,8 @@ log.info """\
 
 workflow {
   
-  reads_ch = Channel.fromFilePairs("$params.input_dir/*{1,2}.fastq.gz")
+  reads_ch = Channel.fromFilePairs("$params.input_dir/*{1,2}.fastq.gz").dump(tag:'Input Reads')
+  
   
   FASTP(reads_ch)
  
