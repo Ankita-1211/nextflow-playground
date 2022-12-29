@@ -61,7 +61,7 @@ process FASTP {
 
 }
 
-process multiqc {
+process MULTIQC {
     publishDir "result/multiqc", mode:'copy'
        
     input:
@@ -92,7 +92,7 @@ workflow {
  
   fastqc_ch = FASTQC(reads_ch)
   
-  multiqc(fastqc_ch)
+  MULTIQC(fastqc_ch)
   
 }
 
