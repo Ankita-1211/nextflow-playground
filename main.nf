@@ -1,18 +1,13 @@
 process FASTQC {
 
     tag "${sampleName}"
-    cpus 10
-    
+
     publishDir "result/fastqc", mode: "copy"
-    // this line is making the output folder & saving the results.
 
     input:
         tuple val(sampleName), path(reads)
 
     output:
-        //path('*html')
-        //path('*zip')
-        //this line is just getting the html output via publishDir
         path("*"), emit: fastqc_html_ch
 
     script:
@@ -24,7 +19,6 @@ process FASTQC {
 
 }
 
-
 process FASTP {
 
     tag "${sampleName}"
@@ -33,8 +27,6 @@ process FASTP {
     
     output:
         tuple path(fwd_trim), path(rev_trim)
-        //tuple path('*html'), path('*json')
-        //tuple path(fwd_trim), path(rev_trim), emit: fastp_ch
         path('*html'), emit: fastp_html_ch
     
     input:
@@ -50,7 +42,7 @@ process FASTP {
         """
         
         fastp \
-        -w 16 --detect_adapter_for_pe \
+        -w $task.cpus --detect_adapter_for_pe \
         -W 4 -M 10 --cut_by_quality3 --length_required 15 \
         -i ${reads[0]} -I ${reads[1]} \
         -o $fwd_trim -O $rev_trim \
@@ -96,7 +88,6 @@ workflow {
   
 }
 
-
 workflow.onComplete {
 
     println ( workflow.success ? """
@@ -113,5 +104,4 @@ workflow.onComplete {
         """
     )
 }
-
 
