@@ -2,13 +2,30 @@ include { FASTQC } from './modules/fastqc.nf'
 include { FASTP } from './modules/fastp.nf' 
 include { MULTIQC } from './modules/multiqc.nf' 
 
-log.info """\
-         BASIC FASTQ FILE QC - N F   P I P E L I N E
-         ============================================
+
+// this prevents a warning of undefined parameter
+params.help             = false
+params.input_dir        = ''
+params.output_dir       = ''
+
+
+// this prints the input parameters
+log.info """
+         BASIC FASTQ FILE QC - N F   P I P E L I N E 
+        ============================================
          input_reads_path        : ${params.input_dir}
          output_dir              : ${params.output_dir}
-         """
-         .stripIndent()
+"""
+
+// this prints the help in case you use --help parameter in the command line and it stops the pipeline
+
+if (params.help) {
+    log.info 'This is BASIC FASTQ FILE QC & Trim Pipeline\n'
+    log.info 'Please define input_reads_path and output_dir!\n'
+    log.info '\n'
+    exit 1
+}
+
 
 workflow {
   
@@ -38,3 +55,5 @@ workflow.onComplete {
         """
     )
 }
+    
+
