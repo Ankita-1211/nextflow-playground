@@ -2,7 +2,7 @@
 
 This is self paced nextflow workflow learning repo. Its a baby steps towards gaining expertise in writing workflow in nextflow.
 
-The toy example here is basic fastq stats workflow. The workflow takes the fastq reads files in apired & runs fastqc & fastp (trimming) & genertaes multiqc report using the fastqc results.
+The toy example here is basic fastq stats workflow. The workflow takes the fastq reads files in paired & runs fastqc & fastp (trimming) & generates multiqc report using the fastqc results.
 
 ## How to run the pipeline
 
@@ -28,6 +28,6 @@ nextflow run main.nf --input_dir path_to_paired_end_fastq_files --output_dir pat
 - Running directly from github repo
 
 ```
-nextflow run https://github.com/Ankita-1211/integration-aws-batch-nextflow.git -r main  --input_dir path_to_paired_end_fastq_files --output_dir path_to_output_directory
+nextflow run https://github.com/Ankita-1211/nextflow-playground.git -r main  --input_dir path_to_paired_end_fastq_files --output_dir path_to_output_directory
 
 ```
